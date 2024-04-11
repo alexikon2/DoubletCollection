@@ -33,7 +33,7 @@ CallDoubletFinder <- function(count, nfeatures=2000, PCs=10){
 
     pK <- bcmvn$pK[which.max(bcmvn$BCmetric)]
     pK <- as.numeric(levels(pK))[pK]
-    seurat <- DoubletFinder::doubletFinde(seurat, PCs = 1:PCs, pN = 0.25, pK = pK,
+    seurat <- DoubletFinder::doubletFinder(seurat, PCs = 1:PCs, pN = 0.25, pK = pK,
                                nExp = 0.1, reuse.pANN = FALSE, sct = FALSE)
     },
     interrupt = function(e){
