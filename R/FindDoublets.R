@@ -27,13 +27,13 @@ CallDoubletFinder <- function(count, nfeatures=2000, PCs=10){
   sink(stdout(), type = "message")
 
   tryCatch({
-    sweep.vector <- DoubletFinder::paramSweep_v3(seurat, PCs = 1:PCs, sct = FALSE)
+    sweep.vector <- DoubletFinder::paramSweep(seurat, PCs = 1:PCs, sct = FALSE)
     sweep.table <- DoubletFinder::summarizeSweep(sweep.vector, GT = FALSE)
     bcmvn <- DoubletFinder::find.pK(sweep.table)
 
     pK <- bcmvn$pK[which.max(bcmvn$BCmetric)]
     pK <- as.numeric(levels(pK))[pK]
-    seurat <- DoubletFinder::doubletFinder_v3(seurat, PCs = 1:PCs, pN = 0.25, pK = pK,
+    seurat <- DoubletFinder::doubletFinde(seurat, PCs = 1:PCs, pN = 0.25, pK = pK,
                                nExp = 0.1, reuse.pANN = FALSE, sct = FALSE)
     },
     interrupt = function(e){
